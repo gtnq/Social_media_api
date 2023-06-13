@@ -4,7 +4,8 @@ const {User} = require('../models');
 
 async function getAllUser(req,res){
     try {
-        const user = await User.find()
+        const user = await User.find({})
+        .populate({path:'thoughts', select: '-__v'})
         res.json(user)
     } catch (error) {
         res.json(error)
