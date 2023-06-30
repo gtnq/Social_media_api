@@ -1,4 +1,4 @@
-const {Schema,model} = require('mongoose');
+const {Schema} = require('mongoose');
 
 const ReactionSchema = new Schema(
     {
@@ -15,16 +15,17 @@ const ReactionSchema = new Schema(
             type:String,
             required:true
         },
-        createdAt:{
-            type:Date,
-            default:Date.now,
-            get:createdAtVal=>dateFormat(createdAtVal)
-        }
+        // createdAt:{
+        //     type:Date,
+        //     default:Date.now,
+        //     get:createdAtVal=>dateFormat(createdAtVal)
+        // }
     },
     {
         toJSON:{
             getters:true
-        }
+        },
+        id : false
     }
 );
 

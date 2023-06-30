@@ -13,7 +13,7 @@ async function getAllThought(req,res){
 
 async function getThoughtById(req,res){
     try {
-        const thought = await Thought.findById(req.params.id)
+        const thought = await Thought.findById({_id : req.params.id}).select('-__v')
         res.json(thought)
         
         if (!thought){
@@ -36,3 +36,5 @@ async function createThought(req,res){
         res.json(error)
     }
 }
+
+module.exports = {  getAllThought, getThoughtById, createThought}
