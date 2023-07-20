@@ -4,26 +4,23 @@ const { User, Thought } = require("../models");
 
 async function getAllThought(req, res) {
 	try {
-		const thought = await Thought.find({})
-			.populate("reactions")
-			.select("-__v");
-		res.json(thought);
-        console.log(thought)
+		const user = await Thought.find({}).select("-__v");
+
+		res.json(user);
 	} catch (error) {
 		res.json(error);
 	}
 }
-
 async function getThoughtById(req, res) {
 	try {
 		const thought = await Thought.findById({ _id: req.params.id }).select(
 			"-__v"
 		);
-
+        res.json(thought);
 		if (!thought) {
 			res.status(404).json({ message: "No thought found with this id" });
 		}
-		res.json(thought);
+		
 	} catch (error) {
 		res.json(error);
 	}
@@ -31,10 +28,11 @@ async function getThoughtById(req, res) {
 
 async function createThought(req, res) {
 	try {
-		const thought = await Thought.create(req.body).then(({ id }) => {
+		const thought = await Thought.create(req.body).then(({ _id }) => {
+			console.log(_id);
 			const user = User.findOneAndUpdate(
 				{ _id: req.body.username },
-				{ $push: { thoughts: id } },
+				{ $addToSet: { thoughts: _id } },
 				{ new: true }
 			);
 			if (!user) {
@@ -43,9 +41,10 @@ async function createThought(req, res) {
 				});
 				return;
 			} else {
-				res.json(dbUserData);
+				res.json(user);
 			}
 		});
+		console.log("everythingadded");
 		if (!thought) {
 			res.status(404).json({ message: "No thought found with this id" });
 			return;
@@ -106,6 +105,7 @@ async function addReaction(req, res) {
 		);
 		if (!reaction) {
 			res.status(400).json({ message: "no reaction found" });
+			console.log("no reaction found");
 		}
 		res.json(reaction);
 	} catch (error) {

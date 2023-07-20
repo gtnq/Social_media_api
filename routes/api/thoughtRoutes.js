@@ -11,7 +11,11 @@ const {
 
 router.route("/").get(getAllThought).post(createThought);
 
-router.route("/:id").get(getThoughtById).post(updateThought).delete(deleteThought);
+router
+	.route("/:id")
+	.get(getThoughtById)
+	.post(updateThought)
+	.delete(deleteThought);
 
 router.route("/:id/reactions").post(addReaction).delete(deleteReaction);
 
