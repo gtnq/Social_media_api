@@ -1,4 +1,4 @@
-const {Schema, model} = require('mongoose');
+const {Schema, model, Types} = require('mongoose');
 //const {ReactionSchema} = require('./reaction');
 const moment = require('moment');
 
@@ -6,7 +6,7 @@ const ReactionSchema = new Schema(
     {
         reactionId:{
             type:Schema.Types.ObjectId,
-            default:()=> new Schema.Types.ObjectId()
+            default:()=> new Types.ObjectId()
         },
         reactionBody:{
             type:String,
@@ -25,8 +25,10 @@ const ReactionSchema = new Schema(
     },
     {
         toJSON:{
-            getters:true
+            getters:true,
+            virtuals:true
         },
+        id:false
     }
 );
 

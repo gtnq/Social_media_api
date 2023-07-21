@@ -13,10 +13,12 @@ router.route("/").get(getAllThought).post(createThought)
 router
 	.route("/:id")
 	.get(getThoughtById)
-	.post(updateThought).delete(deleteThought);
+	.put(updateThought).delete(deleteThought);
 
 	
 
-router.route("/:id/reactions").post(addReaction).delete(deleteReaction);
+router.route("/:id/reactions").post(addReaction)
+
+router.route("/:id/reactions/:reactionId").delete(deleteReaction)
 
 module.exports = router;

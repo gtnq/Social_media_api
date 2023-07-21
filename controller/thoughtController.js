@@ -18,9 +18,11 @@ async function getThoughtById(req, res) {
 		const thought = await Thought.findById({ _id: req.params.id }).select(
 			"-__v"
 		);
-		res.json(thought);
+		
 		if (!thought) {
 			res.status(404).json({ message: "No thought found with this id" });
+		} else {
+			res.json(thought);
 		}
 	} catch (error) {
 		res.json(error);
@@ -46,8 +48,10 @@ async function createThought(req, res) {
         if (!thought) {
             res.status(404).json({ message: 'Thought creation failed' });
             return;
-        }
-        res.json(thought)
+        } else {
+			res.json(thought)
+		}
+        
 	} catch (error) {
 		res.status(404).json(error);
 	}
@@ -70,8 +74,10 @@ async function deleteThought(req, res) {
 		if (!thought) {
 			res.status(400).json({ message: "no thought found" });
 			return;
+		} else {
+			res.json(thought);
 		}
-		res.json(thought);
+		
 	} catch (error) {
 		res.json(error);
 	}
@@ -87,8 +93,9 @@ async function updateThought(req, res) {
 
 		if (!thought) {
 			res.status(400).json({ message: "no thought found" });
+		} else {
+			res.json(thought);
 		}
-		res.json(thought);
 	} catch (error) {
 		res.json(error);
 	}
@@ -104,8 +111,10 @@ async function addReaction(req, res) {
 		if (!reaction) {
 			res.status(400).json({ message: "no reaction found" });
 			console.log("no reaction found");
+		} else {
+			res.json(reaction);
 		}
-		res.json(reaction);
+
 	} catch (error) {
 		res.json(error);
 	}
@@ -120,8 +129,10 @@ async function deleteReaction(req, res) {
 		);
 		if (!reaction) {
 			res.status(400).json({ message: "no reaction found" });
+		} else {
+			res.json(reaction);
 		}
-		res.json(reaction);
+
 	} catch (error) {
 		res.json(error);
 	}
