@@ -1,6 +1,6 @@
 const {Schema, model} = require('mongoose');
 //const {ReactionSchema} = require('./reaction');
-const monent = require('moment');
+const moment = require('moment');
 
 const ReactionSchema = new Schema(
     {
